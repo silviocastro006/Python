@@ -6,25 +6,48 @@ root = Tk()
 root.title('Calculadora +')
 entrada = Entry(root, width=35, borderwidth=5)
 entrada.grid(row=0, column=0, columnspan=3, padx=9, pady=9)
+root.resizable(False,False)
+
+# variáveis
+p_num = None
 
 # Criação de função para o botão
-def clique():
-    ...
+def clique(num):
+    atual = entrada.get()
+    entrada.delete(0,END)
+    entrada.insert(0,str(atual)+str(num))
+
+def limp():
+    entrada.delete(0,END)
+
+def adiciona():
+    primeiro = entrada.get()
+    global p_num
+    p_num = int(primeiro)
+    entrada.delete(0,END)
+
+def igual():
+    segundo = entrada.get()
+    entrada.delete(0,END)
+    entrada.insert(0, p_num+int(segundo))
+
+
+
 
 # Criação dos botões
-bot1 = Button(root, text='1', width=10, height=3,padx=2,command=clique)
-bot2 = Button(root, text='2', width=10, height=3,padx=2,command=clique)
-bot3 = Button(root, text='3', width=10, height=3,padx=2,command=clique)
-bot4 = Button(root, text='4', width=10, height=3,padx=2,command=clique)
-bot5 = Button(root, text='5', width=10, height=3,padx=2,command=clique)
-bot6 = Button(root, text='6', width=10, height=3,padx=2,command=clique)
-bot7 = Button(root, text='7', width=10, height=3,padx=2,command=clique)
-bot8 = Button(root, text='8', width=10, height=3,padx=2,command=clique)
-bot9 = Button(root, text='9', width=10, height=3,padx=2,command=clique)
-bot0 = Button(root, text='0', width=10, height=3,padx=2,command=clique)
-bot_ad = Button(root, text='+',padx=2, width=10, height=3,command=clique)
-bot_ig = Button(root, text='=',width=22, height=3,command=clique)
-bot_cl = Button(root, text='Clear', width=22, height=3,command=clique)
+bot1 = Button(root, text='1', width=10, height=3,padx=2,command=lambda: clique(1))
+bot2 = Button(root, text='2', width=10, height=3,padx=2,command=lambda: clique(2))
+bot3 = Button(root, text='3', width=10, height=3,padx=2,command=lambda: clique(3))
+bot4 = Button(root, text='4', width=10, height=3,padx=2,command=lambda: clique(4))
+bot5 = Button(root, text='5', width=10, height=3,padx=2,command=lambda: clique(5))
+bot6 = Button(root, text='6', width=10, height=3,padx=2,command=lambda: clique(6))
+bot7 = Button(root, text='7', width=10, height=3,padx=2,command=lambda: clique(7))
+bot8 = Button(root, text='8', width=10, height=3,padx=2,command=lambda: clique(8))
+bot9 = Button(root, text='9', width=10, height=3,padx=2,command=lambda: clique(9))
+bot0 = Button(root, text='0', width=10, height=3,padx=2,command=lambda: clique(0))
+bot_ad = Button(root, text='+',padx=2, width=10, height=3,command=adiciona)
+bot_ig = Button(root, text='=',width=22, height=3,command=igual())
+bot_cl = Button(root, text='Clear', width=22, height=3,command=limp)
 
 # Organizando os botões na tela
 
