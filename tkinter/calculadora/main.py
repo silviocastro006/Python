@@ -3,27 +3,28 @@ from tkinter import *
 
 # Configuração da janela inicial
 root = Tk()
-root.title('Calculadora Simples')
-entrada = Entry(root, width=35, borderwidth=3)
-entrada.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
+root.title('Calculadora +')
+entrada = Entry(root, width=35, borderwidth=5)
+entrada.grid(row=0, column=0, columnspan=3, padx=9, pady=9)
 
 # Criação de função para o botão
-
+def clique():
+    ...
 
 # Criação dos botões
-bot1 = Button(root, text='1', padx=40, pady=20,command=clique)
-bot2 = Button(root, text='2', padx=40, pady=20,command=clique)
-bot3 = Button(root, text='3', padx=40, pady=20,command=clique)
-bot4 = Button(root, text='4', padx=40, pady=20,command=clique)
-bot5 = Button(root, text='5', padx=40, pady=20,command=clique)
-bot6 = Button(root, text='6', padx=40, pady=20,command=clique)
-bot7 = Button(root, text='7', padx=40, pady=20,command=clique)
-bot8 = Button(root, text='8', padx=40, pady=20,command=clique)
-bot9 = Button(root, text='9', padx=40, pady=20,command=clique)
-bot0 = Button(root, text='0', padx=40, pady=20,command=clique)
-bot_ad = Button(root, text='+', padx=39, pady=20,command=clique)
-bot_ig = Button(root, text="=", padx=91, pady=20,command=clique)
-bot_cl = Button(root, text='Clear', padx=79, pady=20,command=clique)
+bot1 = Button(root, text='1', width=10, height=3,padx=2,command=clique)
+bot2 = Button(root, text='2', width=10, height=3,padx=2,command=clique)
+bot3 = Button(root, text='3', width=10, height=3,padx=2,command=clique)
+bot4 = Button(root, text='4', width=10, height=3,padx=2,command=clique)
+bot5 = Button(root, text='5', width=10, height=3,padx=2,command=clique)
+bot6 = Button(root, text='6', width=10, height=3,padx=2,command=clique)
+bot7 = Button(root, text='7', width=10, height=3,padx=2,command=clique)
+bot8 = Button(root, text='8', width=10, height=3,padx=2,command=clique)
+bot9 = Button(root, text='9', width=10, height=3,padx=2,command=clique)
+bot0 = Button(root, text='0', width=10, height=3,padx=2,command=clique)
+bot_ad = Button(root, text='+',padx=2, width=10, height=3,command=clique)
+bot_ig = Button(root, text='=',width=22, height=3,command=clique)
+bot_cl = Button(root, text='Clear', width=22, height=3,command=clique)
 
 # Organizando os botões na tela
 
