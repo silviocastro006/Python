@@ -27,9 +27,10 @@ def adiciona():
     entrada.delete(0,END)
 
 def igual():
-    segundo = entrada.get()
+    registro = entrada.get()
+    segundo = int(registro)
     entrada.delete(0,END)
-    entrada.insert(0, p_num+int(segundo))
+    entrada.insert(0, p_num+segundo)
 
 
 
