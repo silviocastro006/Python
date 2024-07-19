@@ -53,7 +53,7 @@ botao =  Button(
     background='#DDA0DD',
     borderwidth=3,
     activebackground='#C71585',
-    command=verificar()
+    command=lambda: verificar(janela,entrada, resultado)
 )
 
 separador = Frame(
