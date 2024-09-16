@@ -6,7 +6,7 @@ from codigo import horario
 root = Tk()
 root.geometry('600x400')
 root.title('Verificador de horário')
-root.iconbitmap(bitmap=r'Udemy_Luiz.Miranda\ex02_aula59\imagens\clock.ico')
+root.iconbitmap(bitmap=r'.\imagens\clock.ico')
 root.config(background='white')
 root.resizable(False,False)
 imagens = {
