@@ -46,11 +46,14 @@ class Tela:
         return label
     
     def criar_frame(self,largura=0, altura=0,x=0,y=0):
-        frame = tk.Frame(self.root,width=largura,height=altura,background="white", highlightbackground="black",highlightthickness=1).place(x=x,y=y)
+        frame = tk.Frame(self.root,width=largura,height=altura,background="white", highlightbackground="black",highlightthickness=1)
+        frame.place(x=x,y=y)
         return frame
 
     def criar_input(self, largura=0,x=0, y=0):
-        entrada = tk.Entry(self.root, font=("Arial",15),width=largura,relief="groove",bg="#f0f0f0",highlightbackground="black",highlightthickness=1).place(x=x,y=y)
+        entrada = tk.Entry(self.root, font=("Arial",15),width=largura,relief="groove",bg="#f0f0f0",highlightbackground="black",highlightthickness=1)
+        entrada.place(x=x,y=y)
+        return entrada
 
     def mostrar(self):
         self.root.deiconify()
@@ -64,9 +67,14 @@ class Tela:
         if not any(isinstance(w,tk.Toplevel) for w in self.root.winfo_children()):
             self.root.destroy()
 
+    def voltar_tela_inicial(self):
+        self.root.withdraw()
+        tela_inicial = Tela_principal(self.root, lista_veiculos = self.lista_veiculos)
+        tela_inicial.mostrar()
+
 
 class Tela_principal(Tela):
-    def __init__(self, master, nome="Tela Inicial", icone=None) -> None:
+    def __init__(self, master, lista_veiculos=None, nome="Tela Inicial", icone="ex02_oficina_veiculos\\icones\\icone_principal.ico") -> None:
         super().__init__(master, nome, icone)
 
         # alterando o tamanho, a tela está um pouco grande
@@ -77,17 +85,54 @@ class Tela_principal(Tela):
 
         # Inserindo os botões na tela
         # --------- Cadastrar Veiculo
-        self.botao_cadastrar = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\Tela_veiculo.png",x=30,y=260)
+        self.botao_cadastrar = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\Tela_veiculo.png",x=30,y=260,comando=self.abrir_cadastro)
         # --------- Cadastrar Serviço
         self.botao_servico = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\Tela_Serviço.png", x=280, y=260)
         # --------- Controle de Serviços
         self.botao_controle = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\tela_controle.png",x=30,y=380)
         # --------- Fechar o programa
         self.botao_fechar = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\fechar_programa.png",x=280,y=380,comando=self.fechar)
+
+        # Armazenar os veículos
+        if lista_veiculos is None:
+            self.lista_veiculos = list()
+        else:
+            self.lista_veiculos = lista_veiculos
+
+    # Abrir tela de cadastro
+    def abrir_cadastro(self):
+        self.root.withdraw()
+        cadastro_veiculo = Tela_cadastro_veiculo(master=self.root,lista_veiculos=self.lista_veiculos)
+        cadastro_veiculo.mostrar()
+
+
+class Veiculo:
+    def __init__(self, id, nome, contato, tipo, placa, cor, marca) -> None:
+        self.id = id
+        self.nome = nome
+        self.contato = contato
+        self.tipo = tipo
+        self.placa = placa
+        self.cor = cor
+        self.marca = marca
+       
+        # Armazenar todos os serviços
+        self.servicos = list()
+
+
+class Servico:
+    def __init__(self,data_entrada,tipo,observacao) -> None:
+        self.data_entrada = data_entrada
+        self.tipo = tipo
+        self.observacao = observacao
+        
     
 class Tela_cadastro_veiculo(Tela):
-    def __init__(self, master, nome="Cadastro de Veículo", icone=None) -> None:
+    def __init__(self, master, lista_veiculos,nome="Cadastro de Veículo", icone="ex02_oficina_veiculos\\icones\\cadas_veiculo.ico") -> None:
         super().__init__(master, nome, icone)
+        
+        # Vincular a lista de veículos vinda da tela principal
+        self.lista_veiculos = lista_veiculos
 
         # Alterar o tamanho da tela
         self.root.geometry("510x560+500+50")
@@ -111,6 +156,7 @@ class Tela_cadastro_veiculo(Tela):
 
         self.lbl_marca = self.criar_label(texto="Marca do Veículo",tamanho=15,x=20,y=340)
 
+        
         # Criando os inputs para os cadastros
         self.ent_nome = self.criar_input(26,195,90)
 
@@ -124,16 +170,56 @@ class Tela_cadastro_veiculo(Tela):
 
         self.ent_marca = self.criar_input(26,195,340)
 
+        
         # Criar os botões do menu
         # ------ Cadastrar veículo
-        self.botao_cadastrar_veiculo = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\cadastro_veic.png",x=30,y=405)
+        self.botao_cadastrar_veiculo = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\cadastro_veic.png",x=30,y=405,comando=self.cadastrar_veiculo)
 
         # ------ Pesquisar veículo
         self.pesquisar_veiculo = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\pesquisa_veic.png",x=280,y=405)
 
 
         # ------ Voltar à tela anterior
-        self.botao_voltar = self.criar_botao("ex02_oficina_veiculos\\botoes\\voltar_tela.png",x=155,y=480)
+        self.botao_voltar = self.criar_botao("ex02_oficina_veiculos\\botoes\\voltar_tela.png",x=155,y=480,comando=self.voltar_tela_inicial)
+
+    # Criando as funções para cada botão
+    def cadastrar_veiculo(self):
+        # incremento o id para cada um ser único
+        novo_id = len(self.lista_veiculos)+1
+        
+        novo_veiculo = Veiculo(
+            novo_id,
+            self.ent_nome.get(),
+            self.ent_contato.get(),
+            self.ent_tipo.get(),
+            self.ent_placa.get(),
+            self.ent_cor.get(),
+            self.ent_marca.get())
+        
+        self.lista_veiculos.append(novo_veiculo)
+        messagebox.showinfo("Sucesso!", "Veículo cadastrado com sucesso!")
+        self.limpar_campos()
+
+        for veiculo in self.lista_veiculos:
+            print(f"======== ID: {veiculo.id} ========")
+            print(f"Nome: {veiculo.nome}\n")
+            print(f"Contato: {veiculo.contato}\n")
+            print(f"Tipo: {veiculo.tipo}\n")
+            print(f"Placa: {veiculo.placa}\n")
+            print(f"Cor: {veiculo.cor}\n")
+            print(f"Marca: {veiculo.marca}\n")
+            print()
+
+    
+        
+
+    def limpar_campos(self):
+        self.ent_nome.delete(0,tk.END)
+        self.ent_contato.delete(0,tk.END)
+        self.ent_tipo.delete(0,tk.END)
+        self.ent_placa.delete(0,tk.END)
+        self.ent_cor.delete(0,tk.END)
+        self.ent_marca.delete(0,tk.END)
 
 
 
@@ -156,11 +242,14 @@ class Tela_cadastro_veiculo(Tela):
 
 
 
+# Lista de veículos global
+lista_veiculos = list()
 
 root = tk.Tk()
 root.withdraw()
 
-cadastro_veiculo = Tela_cadastro_veiculo(root)
-cadastro_veiculo.mostrar()
+
+principal = Tela_principal(root,lista_veiculos=lista_veiculos)
+principal.mostrar()
 
 root.mainloop()
