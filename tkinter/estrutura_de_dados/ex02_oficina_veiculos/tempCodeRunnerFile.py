@@ -75,18 +75,18 @@ class Tela:
 
 
 class Tela_principal(Tela):
-    def __init__(self, master, lista_veiculos=None, nome="Tela Inicial", icone="tkinter\\estrutura_de_dados\\ex02_oficina_veiculos\\icones\\icone_principal.ico") -> None:
+    def __init__(self, master, lista_veiculos=None, nome="Tela Inicial", icone="ex02_oficina_veiculos\\icones\\icone_principal.ico") -> None:
         super().__init__(master, nome, icone)
 
         # alterando o tamanho, a tela está um pouco grande
         self.root.geometry("510x500+500+50")
 
         # Inserindo imagem na tela principal
-        self.banner = self.criar_banner("tkinter\\estrutura_de_dados\\ex02_oficina_veiculos\\principal\\tela_inicial.png",300,200,105,20)
+        self.banner = self.criar_banner("ex02_oficina_veiculos\\principal\\tela_inicial.png",300,200,105,20)
 
         # Inserindo os botões na tela
         # --------- Cadastrar Veiculo
-        self.botao_cadastrar = self.criar_botao(caminhoImg="tkinter\\estrutura_de_dados\\ex02_oficina_veiculos\\botoes\\Tela_veiculo.png",x=30,y=260,comando=self.abrir_cadastro)
+        self.botao_cadastrar = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\Tela_veiculo.png",x=30,y=260,comando=self.abrir_cadastro)
         # --------- Cadastrar Serviço
         self.botao_servico = self.criar_botao(caminhoImg="ex02_oficina_veiculos\\botoes\\Tela_Serviço.png", x=280, y=260)
         # --------- Controle de Serviços
