@@ -69,6 +69,7 @@ def registrar_venda(clientes, vendas):
         vendas.append(venda)
         print("Venda registrada com sucesso!")
         print(venda)
+        
     else:
         print("Nenhum item foi adicionado à venda.")
 
@@ -121,6 +122,7 @@ def main():
             break
         else:
             print("Opção inválida. Tente novamente.")
+
 
 if __name__ == "__main__":
     main()
